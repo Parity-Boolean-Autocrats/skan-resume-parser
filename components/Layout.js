@@ -9,7 +9,9 @@ export default function Layout({ title, children }) {
                 {/* <link rel="icon" href="/favicon.ico" /> */}
             </Head>
             <Header />
-            <main>{children}</main>
+            <main className="bg-black px-[10vw] lg:px-[1.5rem]">
+                {children}
+            </main>
         </>
     );
 }
