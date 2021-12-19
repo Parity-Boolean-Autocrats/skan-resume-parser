@@ -56,20 +56,10 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // Check if User is log in
-    var [f_user, user_loading, err] = useAuthState(auth);
-
-    if (err) {
-        setError(err.toString());
-        setError(null);
-    }
+    // Check if User is valid
 
     const checkUserLoggedIn = async () => {
         // CHECK USER
-
-        if (!user_loading) {
-            setUser(f_user);
-        }
     };
 
     return (
