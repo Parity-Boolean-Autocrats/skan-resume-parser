@@ -6,7 +6,7 @@ export default function Header() {
             <Link href="/">
                 <a>
                     <h1 className="text-white font-semibold text-3xl my-3 mx-3">
-                        Resume Parser
+                        SKAN
                     </h1>
                 </a>
             </Link>
