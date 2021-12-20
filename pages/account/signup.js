@@ -10,8 +10,21 @@ export default function SignUpPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [session, setSession] = useState(null);
 
     const router = useRouter();
+
+    if (session)
+        session.user.aud === "authenticated" &&
+            router.push("/account/dashboard");
+
+    useEffect(() => {
+        setSession(supabase.auth.session());
+
+        supabase.auth.onAuthStateChange((_event, session) => {
+            setSession(session);
+        });
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

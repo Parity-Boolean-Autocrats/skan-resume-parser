@@ -2,6 +2,7 @@ import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
 import { supabase } from "@/config/index";
 import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/router";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function DashboardPage() {
@@ -22,4 +23,19 @@ export default function DashboardPage() {
             <p className="text-white">{session ? session.user.id : "NOPE"}</p>
         </Layout>
     );
+}
+
+export async function getServerSideProps({ req }) {
+    if (!req.headers.cookie) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/account/login",
+            },
+        };
+    }
+
+    return {
+        props: {},
+    };
 }
