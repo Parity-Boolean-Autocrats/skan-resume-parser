@@ -1,8 +1,14 @@
+import Link from "next/link";
+
 import Layout from "@/components/Layout";
-import { useState, useEffect } from "react";
+import Loader from "@/components/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { supabase } from "@/config/index";
+
+import { getUser } from "@/store/index";
+import { register } from "@/store/index";
+
+import { useState } from "react";
 import { useRouter } from "next/router";
 
 export default function SignUpPage() {
@@ -10,65 +16,38 @@ export default function SignUpPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [session, setSession] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const router = useRouter();
 
-    if (session)
-        session.user.aud === "authenticated" &&
-            router.push("/account/dashboard");
-
-    useEffect(() => {
-        setSession(supabase.auth.session());
-
-        supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session);
-        });
-    }, []);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setLoading(true);
         if (password !== confirmPassword) {
             toast.error("Passwords do not match!");
             return;
         }
 
         try {
-            let usernames = await supabase
-                .from("users")
-                .select("username")
-                .eq("username", username);
+            let error = await register({ username, email, password });
 
-            if (usernames.data.length !== 0) {
-                toast.error("Username is not unique");
+            if (error) {
+                toast.error(error.message);
                 return;
             }
-
-            const { user, error } = await supabase.auth.signUp({
-                email: email,
-                password: password,
-            });
-            if (error) throw error;
-
-            let u = {
-                uid: user.id,
-                username: username.toLowerCase(),
-                email: email,
-            };
-
-            let { data, error: err } = await supabase.from("users").insert(u);
-
-            if (err) throw error;
             router.push("/account/dashboard");
         } catch (error) {
             toast.error(error.error_description || error.message);
             return;
+        } finally {
+            setLoading(false);
+            router.push("/account/dashboard");
         }
     };
 
     return (
         <Layout title="SKAN | Sign Up">
+            {loading && <Loader />}
             <ToastContainer />
             <div className="text-white w-full flex md:justify-center md:items-center">
                 <div className="flex w-1/2 h-full justify-center items-center my-[8rem]">
@@ -160,6 +139,16 @@ export default function SignUpPage() {
                                     Forgot Password?
                                 </a> */}
                             </div>
+                            <div className="block my-3">
+                                <p className="text-[0.9rem]">
+                                    Already have an account?{" "}
+                                    <Link href="/account/login">
+                                        <a className="text-blue-500 hover:underline">
+                                            Log In
+                                        </a>
+                                    </Link>
+                                </p>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -167,4 +156,21 @@ export default function SignUpPage() {
             </div>
         </Layout>
     );
+}
+
+export async function getServerSideProps({ req }) {
+    const user = await getUser(req);
+
+    if (user.user) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/account/dashboard",
+            },
+        };
+    }
+
+    return {
+        props: {},
+    };
 }

@@ -1,44 +1,44 @@
+import Link from "next/link";
+
 import Layout from "@/components/Layout";
-import { useState, useEffect } from "react";
+import Loader from "@/components/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import { getUser, login } from "@/store/index";
+
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { supabase } from "@/config/index";
 
 export default function SignUpPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
-    const [session, setSession] = useState(null);
-
-    if (session)
-        session.user.aud === "authenticated" &&
-            router.push("/account/dashboard");
-
-    useEffect(() => {
-        setSession(supabase.auth.session());
-
-        supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session);
-        });
-    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         try {
-            const { error } = await supabase.auth.signIn({ email, password });
-            if (error) throw error;
-            // alert("Check your email for the login link!");
+            let error = await login({ email, password });
+
+            if (error) {
+                toast.error(error.message);
+                return;
+            }
         } catch (error) {
             toast.error(error.error_description || error.message);
+            return;
         } finally {
+            setLoading(false);
             router.push("/account/dashboard");
         }
     };
 
     return (
         <Layout title="SKAN | Login">
+            {loading && <Loader />}
             <ToastContainer />
             <div className="text-white w-full flex md:justify-center md:items-center">
                 <div className="flex w-1/2 h-full justify-center items-center my-[8rem]">
@@ -89,6 +89,16 @@ export default function SignUpPage() {
                                     Log In
                                 </button>
                             </div>
+                            <div className="block my-3">
+                                <p className="text-[0.9rem]">
+                                    Don&apos;t have an account?{" "}
+                                    <Link href="/account/signup">
+                                        <a className="text-blue-500 hover:underline">
+                                            Sign Up
+                                        </a>
+                                    </Link>
+                                </p>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -96,4 +106,21 @@ export default function SignUpPage() {
             </div>
         </Layout>
     );
+}
+
+export async function getServerSideProps({ req }) {
+    const user = await getUser(req);
+
+    if (user.user) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/account/dashboard",
+            },
+        };
+    }
+
+    return {
+        props: {},
+    };
 }

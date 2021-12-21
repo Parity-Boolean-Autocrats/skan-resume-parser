@@ -1,3 +1,5 @@
+import cookie from "cookie";
+
 export const problems = [
     {
         icon: "fas fa-user-clock fa-3x",
@@ -41,3 +43,7 @@ export const solutions = [
             "We provide quality data visualizations in the form of graphs and charts to give provide you clarity about the experience of candidates in your preferred and required skillsets.",
     },
 ];
+
+export function parseCookies(req) {
+    return cookie.parse(req ? req.headers.cookie || "" : "");
+}

@@ -9,5 +9,5 @@ export const NEXT_URL =
     process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000";
 export const NEXT_API_KEY = process.env.NEXT_PUBLIC_NEXT_API_KEY;
 // FLASK API
-
+export const FLASK_API_URL = process.env.NEXT_PUBLIC_FLASK_API_URL;
 export const FLASK_TOKEN = process.env.NEXT_PUBLIC_FLASK_API_TOKEN;
