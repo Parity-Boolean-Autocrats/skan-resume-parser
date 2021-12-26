@@ -13,15 +13,22 @@ export default function Header() {
             <ul className="flex text-white items-center justify-center sm:mr-0">
                 <li className="mx-3 my-3">
                     <Link href="/">
-                        <a className="transition-colors duration-500 hover:bg-[rgba(229,231,235,0.3)] rounded-[8px] p-[0.5rem]">
+                        <a className="transition-colors duration-500 ease-in-out hover:bg-[rgba(229,231,235,0.3)] rounded-[8px] p-[0.5rem] md:text-[0.9rem]">
                             Home
                         </a>
                     </Link>
                 </li>
                 <li className="mx-3 my-3">
                     <Link href="/about">
-                        <a className="transition-colors duration-500 ease-in-out hover:bg-[rgba(229,231,235,0.3)] rounded-[8px] p-[0.5rem]">
+                        <a className="transition-colors duration-500 ease-in-out hover:bg-[rgba(229,231,235,0.3)] rounded-[8px] p-[0.5rem] md:text-[0.9rem]">
                             About
+                        </a>
+                    </Link>
+                </li>
+                <li className="mx-3 my-3">
+                    <Link href="/account/login">
+                        <a className="cursor-pointer w-full h-full py-1 px-2 flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-blue-600 transition-colors duration-500 ease-in-out hover:bg-blue-700 md:text-[0.9rem]">
+                            Sign In
                         </a>
                     </Link>
                 </li>

@@ -1,14 +1,17 @@
-import Layout from "../components/Layout";
 import Image from "next/image";
 import Link from "next/link";
+
+import Layout from "../components/Layout";
+import Loader from "@/components/Loader";
 import ProblemTile from "../components/ProblemTile";
 import SolutionCard from "../components/SolutionCard";
 import ResultBox from "../components/ResultBox";
-import { useState } from "react";
-import { FLASK_TOKEN } from "../config";
-import axios from "axios";
+
+import { getDemoResult } from "../store/index";
 import { Link as LK, animateScroll } from "react-scroll";
 import { problems, solutions } from "../helpers/index";
+
+import { useState } from "react";
 
 export default function Home() {
     const [result, setResult] = useState(
@@ -16,30 +19,21 @@ export default function Home() {
     );
     const [isFileUploaded, setIsFileUploaded] = useState(false);
     const [file, setFile] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         setIsFileUploaded(true);
+        setLoading(true);
+
         e.preventDefault();
         try {
-            let formData = new FormData();
-
-            formData.append("file", file);
-
-            const res = await axios.post(
-                "http://127.0.0.1:5000/api/v1/parse/doc",
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        Authorization: `Bearer ${FLASK_TOKEN}`,
-                    },
-                }
-            );
-
-            let data = res.data;
+            let data = await getDemoResult(file);
             setResult(data.toString());
         } catch (e) {
             setResult(e.toString());
+        } finally {
+            document.getElementById("file").value = "";
+            setLoading(false);
         }
     };
 
@@ -54,6 +48,7 @@ export default function Home() {
 
     return (
         <Layout title="SKAN | Home">
+            {loading && <Loader />}
             <div className="flex items-center justify-center text-white py-[2rem] px-[1.2rem] sm:items-center sm:justify-center ">
                 <div className="w-[420px] sm:text-center">
                     <h4 className="text-[1.2rem]">
@@ -127,7 +122,6 @@ export default function Home() {
                     />
                 ))}
             </div>
-            {/* Try Now */}
 
             <div
                 id="demo"
@@ -160,7 +154,7 @@ export default function Home() {
                 </form>
                 <p>
                     For More File Formats, Visualizations and Statistics,{" "}
-                    <Link href="/signup">
+                    <Link href="/account/signup">
                         <a className="text-blue-500 hover:underline">Sign Up</a>
                     </Link>
                 </p>
