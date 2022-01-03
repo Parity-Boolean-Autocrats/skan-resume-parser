@@ -74,7 +74,6 @@ export const getDemoResult = async (file) => {
     let formData = new FormData();
 
     formData.append("file", file);
-    console.log(file);
 
     const res = await axios.post(
         `${FLASK_API_URL}/api/v1/parse/doc`,
@@ -87,5 +86,5 @@ export const getDemoResult = async (file) => {
         }
     );
 
-    return { data: res.data, error: error };
+    return { data: res.data };
 };

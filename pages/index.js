@@ -27,7 +27,7 @@ export default function Home() {
 
         e.preventDefault();
         try {
-            let data = await getDemoResult(file);
+            let { data } = await getDemoResult(file);
             setResult(data.toString());
         } catch (e) {
             setResult(e.toString());
@@ -77,7 +77,12 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="sm:hidden">
-                    <Image src="/images/img1.png" height={400} width={400} />
+                    <Image
+                        src="/images/img1.png"
+                        height={400}
+                        width={400}
+                        alt="Resume Cover Image"
+                    />
                 </div>
             </div>
             <div className="text-gray-800 bg-white text-center py-4">
@@ -159,6 +164,9 @@ export default function Home() {
                     </Link>
                 </p>
             </div>
+            <footer className="bg-white text-center font-2xl font-light py-5">
+                <h1>Copyright 2021 &copy; SKAN</h1>
+            </footer>
         </Layout>
     );
 }

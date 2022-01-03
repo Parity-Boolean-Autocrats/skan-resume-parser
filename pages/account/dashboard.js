@@ -25,7 +25,7 @@ export default function DashboardPage({ user }) {
     return (
         <Layout title="SKAN | Dashboard" no_header={true}>
             <ToastContainer />
-            <h3 className="text-white">Dashboard</h3>
+
             <p className="text-white">{user ? user.user.id : "NOPE"}</p>
 
             <button

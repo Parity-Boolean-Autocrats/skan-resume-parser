@@ -2,19 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-.signup_img {
-    background: url("../public/images/signup-img.jpg") no-repeat center
-        center/cover;
-    height: 93vh;
-    width: 50%;
+body {
+    background: #000;
 }
 
-/* @media screen and (min-width: 900px), screen and (max-height: 600px) {
-    .signup_img {
-        height: 600px;
-    }
+::-webkit-scrollbar {
+    width: 10px;
+}
 
-    .signup_img img {
-        height: 100%;
-    }
-} */
+::-webkit-scrollbar-track {
+    /* border-radius: 10px; */
+    background-color: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #2090db;
+}

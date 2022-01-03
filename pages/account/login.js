@@ -40,69 +40,62 @@ export default function SignUpPage() {
         <Layout title="SKAN | Login">
             {loading && <Loader />}
             <ToastContainer />
-            <div className="text-white w-full flex md:justify-center md:items-center">
-                <div className="flex w-1/2 h-full justify-center items-center my-[8rem]">
-                    <div className=" flex flex-col md:items-center justify-center lg:p-[2rem] md:w-full sm:p-0 sm:my-[4rem]">
-                        <h1 className="text-4xl font-bold my-3">Login</h1>
-                        <form
-                            className="pt-6 pb-8 mb-4 w-[350px]"
-                            onSubmit={handleSubmit}
+            <div className="flex flex-col items-center justify-center h-full">
+                <h1 className="text-white text-4xl font-bold my-3">Login</h1>
+                <form
+                    className="max-w-lg w-1/3 md:w-3/4"
+                    onSubmit={handleSubmit}
+                >
+                    <div className="my-6">
+                        <label
+                            className="text-white block text-sm font-bold mb-2"
+                            htmlFor="email"
                         >
-                            <div className="mb-4">
-                                <label
-                                    className="block text-sm font-bold mb-2"
-                                    htmlFor="email"
-                                >
-                                    Email
-                                </label>
-                                <input
-                                    className="shadow text-black appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline "
-                                    id="email"
-                                    required={true}
-                                    type="email"
-                                    placeholder="Email"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </div>
-                            <div className="mb-6">
-                                <label
-                                    className="block text-sm font-bold mb-2"
-                                    htmlFor="password"
-                                >
-                                    Password
-                                </label>
-                                <input
-                                    className="shadow appearance-none text-black rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="password"
-                                    type="password"
-                                    placeholder="****"
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
-                                />
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <button
-                                    className="cursor-pointer w-1/2 md:w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 shadow-lg shadow-blue-600/50 transition-colors duration-500 ease-in-out hover:bg-blue-700 md:py-4 md:text-lg md:px-10 md:mr-4"
-                                    type="submit"
-                                >
-                                    Log In
-                                </button>
-                            </div>
-                            <div className="block my-3">
-                                <p className="text-[0.9rem]">
-                                    Don&apos;t have an account?{" "}
-                                    <Link href="/account/signup">
-                                        <a className="text-blue-500 hover:underline">
-                                            Sign Up
-                                        </a>
-                                    </Link>
-                                </p>
-                            </div>
-                        </form>
+                            Email
+                        </label>
+                        <input
+                            className="shadow text-black appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline "
+                            id="email"
+                            required={true}
+                            type="email"
+                            placeholder="Email"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                     </div>
-                </div>
-                <div className="w-1/2 h-full md:hidden signup_img"></div>
+                    <div className="my-6">
+                        <label
+                            className="text-white block text-sm font-bold mb-2"
+                            htmlFor="password"
+                        >
+                            Password
+                        </label>
+                        <input
+                            className="shadow appearance-none text-black rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                            id="password"
+                            type="password"
+                            placeholder="****"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div className="flex items-center justify-between">
+                        <button
+                            className="cursor-pointer w-1/3 lg:w-[45%] md:w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 shadow-lg shadow-blue-600/50 transition-colors duration-500 ease-in-out hover:bg-blue-700"
+                            type="submit"
+                        >
+                            Log In
+                        </button>
+                    </div>
+                    <div className="block my-3">
+                        <p className="text-white">
+                            Don&apos;t have an account?{" "}
+                            <Link href="/account/signup">
+                                <a className="text-blue-500 hover:underline">
+                                    Sign Up
+                                </a>
+                            </Link>
+                        </p>
+                    </div>
+                </form>
             </div>
         </Layout>
     );

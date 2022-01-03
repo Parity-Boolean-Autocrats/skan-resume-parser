@@ -12,6 +12,7 @@ export default function SolutionCard({ image, title, description, reverse }) {
                     className="w-full h-1/2"
                     src={`/images/${image}`}
                     layout="fill"
+                    alt="Solution"
                     priority={true}
                 />
             </div>
