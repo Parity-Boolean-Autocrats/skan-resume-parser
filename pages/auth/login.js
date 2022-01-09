@@ -24,11 +24,9 @@ export default function SignUpPage() {
 
             if (error) {
                 toast.error(error.message);
-                return;
             }
         } catch (error) {
             toast.error(error.error_description || error.message);
-            return;
         } finally {
             setLoading(false);
         }

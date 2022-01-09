@@ -5,7 +5,6 @@ import AuthContext from "@/context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { getUserByCookie } from "@/store/index";
 import { useState, useContext } from "react";
 
 export default function SignUpPage() {
@@ -20,21 +19,20 @@ export default function SignUpPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+
         if (password !== confirmPassword) {
             toast.error("Passwords do not match!");
+            setLoading(false);
             return;
         }
-
         try {
             let error = await register({ username, email, password });
 
             if (error) {
                 toast.error(error.message);
-                return;
             }
         } catch (error) {
             toast.error(error.error_description || error.message);
-            return;
         } finally {
             setLoading(false);
         }

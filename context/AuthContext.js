@@ -28,12 +28,14 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const register = async ({ username, email, password }) => {
-        let usernames = await supabase
+        let { data: usernames, error: e } = await supabase
             .from("profiles")
             .select("username")
             .eq("username", username);
 
-        if (usernames.data.length !== 0)
+        if (e) return e;
+
+        if (usernames.length !== 0)
             return { message: "Username is not unique" };
 
         const { error } = await supabase.auth.signUp(
