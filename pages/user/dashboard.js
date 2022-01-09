@@ -3,11 +3,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useContext } from "react";
-import { getUserByCookie, fetchProfile } from "@/store/index";
+import { fetchProfile } from "@/store/index";
 import { useRouter } from "next/router";
 import AuthContext from "@/context/AuthContext";
 
-export default function DashboardPage({ user, profile }) {
+export default function DashboardPage({ profile }) {
     const router = useRouter();
 
     const { logout } = useContext(AuthContext);
@@ -41,15 +41,8 @@ export default function DashboardPage({ user, profile }) {
 }
 
 export async function getServerSideProps({ req }) {
-    const { user } = await getUserByCookie(req);
-
-    if (!user) {
-        // If no user, redirect to index.
-        return { props: {}, redirect: { destination: "/", permanent: false } };
-    }
-
-    const profile = await fetchProfile(user);
+    const profile = await fetchProfile(req);
 
     // If there is a user, return it.
-    return { props: { user, profile } };
+    return { props: { profile } };
 }

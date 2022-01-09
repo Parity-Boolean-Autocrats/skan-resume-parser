@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
             async (event, session) => {
                 await handleAuthChange(event, session);
 
-                if (event === "SIGNED_IN") router.push("/account/dashboard");
+                if (event === "SIGNED_IN") router.push("/user/dashboard");
                 else if (event === "SIGNED_OUT") router.push("/");
 
                 setUser(session?.user || null);

@@ -4,7 +4,9 @@ import { createClient } from "@supabase/supabase-js";
 
 const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_KEY;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
+    fetch: fetch,
+});
 export const NEXT_URL =
     process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000";
 export const NEXT_API_KEY = process.env.NEXT_PUBLIC_NEXT_API_KEY;

@@ -26,7 +26,7 @@ export default function Header() {
                     </Link>
                 </li>
                 <li className="mx-3 my-3">
-                    <Link href="/account/login">
+                    <Link href="/auth/login">
                         <a className="cursor-pointer w-full h-full py-1 px-2 flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-blue-600 transition-colors duration-500 ease-in-out hover:bg-blue-700 md:text-[0.9rem]">
                             Sign In
                         </a>

@@ -2,7 +2,9 @@ import { supabase, FLASK_TOKEN, FLASK_API_URL } from "@/config/index";
 import axios from "axios";
 
 // Fetch User Profile
-export const fetchProfile = async (user) => {
+export const fetchProfile = async (req) => {
+    let { user } = await getUserByCookie(req);
+
     const { data, error } = await supabase
         .from("profiles")
         .select("*")
