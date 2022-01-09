@@ -1,71 +1,19 @@
-import {
-    supabase,
-    FLASK_TOKEN,
-    FLASK_API_URL,
-    NEXT_API_KEY,
-    NEXT_URL,
-} from "@/config/index";
-import { parseCookies } from "@/helpers/index";
+import { supabase, FLASK_TOKEN, FLASK_API_URL } from "@/config/index";
 import axios from "axios";
 
-// AUTH FUNCTIONS
-export const updateAuth = async (_event, session) => {
-    fetch(`${NEXT_URL}/api/auth`, {
-        method: "POST",
-        headers: new Headers({
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${NEXT_API_KEY}`,
-        }),
-        credentials: "same-origin",
-        body: JSON.stringify({ event: _event, session }),
-    }).then((res) => res.json());
+// Fetch User Profile
+export const fetchProfile = async (user) => {
+    const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id);
+
+    if (!error) return data[0];
 };
 
-export const register = async ({ username, email, password }) => {
-    let usernames = await supabase
-        .from("users")
-        .select("username")
-        .eq("username", username);
-
-    if (usernames.data.length !== 0) {
-        let er = { message: "Username is not unique" };
-        return er;
-    }
-
-    const { user, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-    });
-    if (error) return error;
-
-    let u = {
-        uid: user.id,
-        username: username.toLowerCase(),
-        email: email,
-    };
-
-    let { data, error: err } = await supabase.from("users").insert(u);
-
-    if (err) return error;
-};
-
-export const login = async ({ email, password }) => {
-    const { error } = await supabase.auth.signIn({
-        email,
-        password,
-    });
-    if (error) return error;
-};
-
-export const logout = async () => {
-    const { error } = supabase.auth.signOut();
-    if (error) return error;
-};
-
-export const getUser = async (req) => {
-    const { token } = parseCookies(req);
-    const user = await supabase.auth.api.getUser(token);
-    return user;
+// Get User from auth cookie server side
+export const getUserByCookie = async (req) => {
+    return await supabase.auth.api.getUserByCookie(req);
 };
 
 // Send Demo request to FLASK API

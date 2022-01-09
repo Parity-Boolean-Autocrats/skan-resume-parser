@@ -2,13 +2,15 @@ import Layout from "@/components/Layout";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { getUser, logout } from "@/store/index";
-
-import { useState } from "react";
+import { useContext } from "react";
+import { getUserByCookie, fetchProfile } from "@/store/index";
 import { useRouter } from "next/router";
+import AuthContext from "@/context/AuthContext";
 
-export default function DashboardPage({ user }) {
+export default function DashboardPage({ user, profile }) {
     const router = useRouter();
+
+    const { logout } = useContext(AuthContext);
 
     const handleLogout = async (e) => {
         e.preventDefault();
@@ -26,7 +28,7 @@ export default function DashboardPage({ user }) {
         <Layout title="SKAN | Dashboard" no_header={true}>
             <ToastContainer />
 
-            <p className="text-white">{user ? user.user.id : "NOPE"}</p>
+            <p className="text-white">{profile?.username}</p>
 
             <button
                 onClick={handleLogout}
@@ -39,17 +41,15 @@ export default function DashboardPage({ user }) {
 }
 
 export async function getServerSideProps({ req }) {
-    const user = await getUser(req);
-    if (!user.user) {
-        return {
-            redirect: {
-                permanent: false,
-                destination: "/account/login",
-            },
-        };
+    const { user } = await getUserByCookie(req);
+
+    if (!user) {
+        // If no user, redirect to index.
+        return { props: {}, redirect: { destination: "/", permanent: false } };
     }
 
-    return {
-        props: { user: user },
-    };
+    const profile = await fetchProfile(user);
+
+    // If there is a user, return it.
+    return { props: { user, profile } };
 }
