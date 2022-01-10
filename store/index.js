@@ -23,7 +23,11 @@ export const getUserByCookie = async (req) => {
 export const getDemoResult = async (file) => {
     let formData = new FormData();
 
-    formData.append("file", file);
+    // formData.append("file", file);
+
+    Array.from(file).forEach((f) => {
+        formData.append(`file-${Array.from(file).indexOf(f)}`, f);
+    });
 
     const res = await axios.post(
         `${FLASK_API_URL}/api/v1/parse/doc`,

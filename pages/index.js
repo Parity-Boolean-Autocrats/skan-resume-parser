@@ -14,18 +14,16 @@ import { problems, solutions } from "../helpers/index";
 import { useState } from "react";
 
 export default function Home() {
-    const [result, setResult] = useState(
-        "Please upload your resume to parse it :)"
-    );
+    const [result, setResult] = useState("");
     const [isFileUploaded, setIsFileUploaded] = useState(false);
-    const [file, setFile] = useState("");
+    const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
         setIsFileUploaded(true);
         setLoading(true);
 
-        e.preventDefault();
         try {
             let { data } = await getDemoResult(file);
             setResult(data.toString());
@@ -38,7 +36,7 @@ export default function Home() {
     };
 
     const onChange = (e) => {
-        setFile(e.target.files[0]);
+        setFile(e.target.files);
     };
 
     const handleClear = (e) => {
@@ -139,6 +137,7 @@ export default function Home() {
                         type="file"
                         name="file"
                         id="file"
+                        multiple={true}
                         onChange={onChange}
                         className="file:bg-gradient-to-b file:from-blue-600 file:to-blue-500 file:px-5 file:py-3 file:m-5 file:border-none file:rounded-full file:text-white file:cursor-pointer file:shadow-lg file:shadow-blue-500/50 bg-gradient-to-br from-gray-600 to-gray-700 text-white/70 rounded-full cursor-pointer shadow-md shadow-gray-600/30 w-full"
                     />
