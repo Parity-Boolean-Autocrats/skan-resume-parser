@@ -19,3 +19,18 @@ body {
     border-radius: 10px;
     background: #2090db;
 }
+
+.result-box::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.result-box::-webkit-scrollbar-track {
+    /* border-radius: 10px; */
+    background-color: #000;
+}
+
+.result-box::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #324049;
+}
