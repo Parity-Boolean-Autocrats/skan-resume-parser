@@ -1,14 +1,18 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
     return (
         <div className="max-w-7xl mx-auto px-4 sm:p-0">
-            <header className="flex bg-black justify-between items-center sm:flex-col sm:justify-center lg:px-[1.5rem] sm:border-b-[1px] sm:border-slate-50">
+            <header className="flex mt-2 bg-black justify-between items-center sm:flex-col sm:justify-center lg:px-[1.5rem] sm:border-b-[1px] sm:border-slate-50">
                 <Link href="/">
                     <a>
-                        <h1 className="text-white font-semibold text-3xl my-3 mx-3">
-                            SKAN
-                        </h1>
+                        <Image
+                            src="/images/SKAN.png"
+                            width={120}
+                            height={120}
+                            alt="logo"
+                        />
                     </a>
                 </Link>
                 <ul className="flex text-white items-center justify-center sm:mr-0">

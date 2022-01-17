@@ -5,7 +5,6 @@ import AuthContext from "@/context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { getUserByCookie } from "@/store/index";
 import { useState, useContext } from "react";
 
 export default function SignUpPage() {

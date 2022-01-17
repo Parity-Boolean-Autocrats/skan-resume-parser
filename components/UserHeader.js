@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
@@ -19,13 +20,16 @@ export default function UserHeader({ profile, handleLogout }) {
                     <div className="max-w-7xl mx-auto px-8 lg:px-4">
                         <div className="flex items-center justify-between h-16">
                             <div className="flex items-center">
-                                <div className="flex-shrink-0">
-                                    <img
-                                        className="h-8 w-8"
-                                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                                        alt="Workflow"
-                                    />
-                                </div>
+                                <Link href="/">
+                                    <a className="pt-2">
+                                        <Image
+                                            src="/images/skan-dashboard.png"
+                                            width={40}
+                                            height={40}
+                                            alt="logo"
+                                        />
+                                    </a>
+                                </Link>
                                 <div className="block md:hidden">
                                     <div className="ml-10 flex items-baseline space-x-4">
                                         {navigation.map((item) => (
@@ -181,12 +185,9 @@ export default function UserHeader({ profile, handleLogout }) {
                             </div>
                             <div className="mt-3 px-2 space-y-1">
                                 <Link href="/user/profile">
-                                    <Disclosure.Button
-                                        as="a"
-                                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 cursor-pointer"
-                                    >
+                                    <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 cursor-pointer">
                                         Your Profile
-                                    </Disclosure.Button>
+                                    </a>
                                 </Link>
                                 <div className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 cursor-pointer">
                                     <button onClick={handleLogout}>

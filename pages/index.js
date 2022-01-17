@@ -164,7 +164,10 @@ export default function Home() {
                 </p>
             </div>
             <footer className="bg-white text-center font-2xl font-light py-5">
-                <h1>Copyright 2021 &copy; SKAN</h1>
+                <h1>
+                    Copyright &copy; {new Date().getFullYear()} | All Rights
+                    Reserved
+                </h1>
             </footer>
         </Layout>
     );
