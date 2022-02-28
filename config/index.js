@@ -14,3 +14,4 @@ export const NEXT_API_KEY = process.env.NEXT_PUBLIC_NEXT_API_KEY;
 // FLASK API
 export const FLASK_API_URL = process.env.NEXT_PUBLIC_FLASK_API_URL;
 export const FLASK_TOKEN = process.env.NEXT_PUBLIC_FLASK_API_TOKEN;
+export const FLASK_DEMO_TOKEN = process.env.NEXT_PUBLIC_FLASK_DEMO_TOKEN;

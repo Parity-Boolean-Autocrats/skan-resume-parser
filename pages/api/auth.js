@@ -1,4 +1,4 @@
-import { supabase } from "../../config/index";
+import { supabase } from "@/config/index";
 
 export default function handler(req, res) {
     if (req.method === "POST") {

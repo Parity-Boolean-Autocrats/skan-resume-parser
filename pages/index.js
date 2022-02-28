@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Layout from "../components/Layout";
+import Layout from "@/components/Layout";
 import Loader from "@/components/Loader";
-import ProblemTile from "../components/ProblemTile";
-import SolutionCard from "../components/SolutionCard";
-import ResultBox from "../components/ResultBox";
+import ProblemTile from "@/components/ProblemTile";
+import SolutionCard from "@/components/SolutionCard";
+import ResultBox from "@/components/ResultBox";
 
-import { getDemoResult } from "../store/index";
-import { Link as LK, animateScroll } from "react-scroll";
-import { problems, solutions } from "../helpers/index";
+import { getDemoResult } from "@/store/index";
+import { Link as LK } from "react-scroll";
+import { problems, solutions } from "@/helpers/index";
 
 import { useState } from "react";
 
@@ -137,7 +137,6 @@ export default function Home() {
                         type="file"
                         name="file"
                         id="file"
-                        multiple={true}
                         onChange={onChange}
                         className="file:bg-gradient-to-b file:from-blue-600 file:to-blue-500 file:px-5 file:py-3 file:m-5 file:border-none file:rounded-full file:text-white file:cursor-pointer file:shadow-lg file:shadow-blue-500/50 bg-gradient-to-br from-gray-600 to-gray-700 text-white/70 rounded-full cursor-pointer shadow-md shadow-gray-600/30 w-full"
                     />
