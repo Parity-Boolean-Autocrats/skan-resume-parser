@@ -36,7 +36,7 @@ export default function Home() {
     };
 
     const onChange = (e) => {
-        setFile(e.target.files);
+        setFile(e.target.files[0]);
     };
 
     const handleClear = (e) => {
