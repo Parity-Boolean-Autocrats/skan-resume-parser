@@ -1,11 +1,11 @@
 import UserLayout from "@/components/UserLayout";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import { useContext } from "react";
 import { fetchProfile } from "@/store/index";
 import { useRouter } from "next/router";
 import AuthContext from "@/context/AuthContext";
+import FileUploadWorkspace from "@/components/FileUploadWorkspace";
 
 export default function DashboardPage({ profile }) {
     const router = useRouter();
@@ -29,24 +29,26 @@ export default function DashboardPage({ profile }) {
             title="SKAN | Dashboard"
             profile={profile}
             handleLogout={handleLogout}
+            current={0}
         >
             <ToastContainer />
             <>
-                <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        <h1 className="text-3xl font-bold text-gray-900">
+                <header className="shadow">
+                    <div className="mx-auto flex max-w-7xl items-center justify-between py-6 px-4 sm:px-6 lg:px-8">
+                        <h1 className="text-3xl font-bold text-white">
                             Dashboard
                         </h1>
                     </div>
                 </header>
                 <main>
-                    <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-                        {/* Replace with your content */}
-                        <div className="px-4 py-6 sm:px-0">
-                            <div className="border-4 border-dashed border-gray-200 rounded-lg h-96" />
+                    <>
+                        <div className="mx-auto my-4 max-w-4xl rounded-lg bg-gray-300 p-5 sm:px-6 md:px-8 lg:mx-8">
+                            <h1 className="mb-5 text-2xl font-bold ">
+                                Scan New Resume(s)
+                            </h1>
+                            <FileUploadWorkspace user_id={profile.id} />
                         </div>
-                        {/* /End replace */}
-                    </div>
+                    </>
                 </main>
             </>
         </UserLayout>
@@ -56,6 +58,5 @@ export default function DashboardPage({ profile }) {
 export async function getServerSideProps({ req }) {
     const profile = await fetchProfile(req);
 
-    // If there is a user, return it.
     return { props: { profile } };
 }

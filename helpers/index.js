@@ -41,3 +41,26 @@ export const solutions = [
             "We provide quality data visualizations in the form of graphs and charts to give provide you clarity about the experience of candidates in your preferred and required skillsets.",
     },
 ];
+
+export const arrayMatchCount = (query, list) => {
+    let count = 0;
+
+    for (var j = 0; j < list.length; j++) {
+        if (list[j].match(query)) {
+            count += 1;
+        }
+    }
+
+    return count;
+};
+
+export function exportJson(obj) {
+    var data =
+        "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
+
+    const link = document.createElement("a");
+    document.body.appendChild(link);
+    link.click();
+    link.setAttribute("href", "data:" + data);
+    link.setAttribute("download", "data.json");
+}

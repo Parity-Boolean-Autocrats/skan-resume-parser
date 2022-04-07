@@ -1,7 +1,7 @@
 export default function ResultBox({ result }) {
     return (
-        <div className="bg-white p-3 w-[500px] h-[400px] m-[2rem] overflow-auto result-box">
-            <code className="text-black">{result}</code>
+        <div className="result-box m-[2rem] h-[400px] w-[500px] overflow-auto bg-white p-3">
+            <code className="text-black">{JSON.stringify(result, 4, 2)}</code>
         </div>
     );
 }

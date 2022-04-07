@@ -47,12 +47,12 @@ export default function Home() {
     return (
         <Layout title="SKAN | Home">
             {loading && <Loader />}
-            <div className="flex items-center justify-center text-white py-[2rem] px-[1.2rem] sm:items-center sm:justify-center ">
+            <div className="flex items-center justify-center py-[2rem] px-[1.2rem] text-white sm:items-center sm:justify-center ">
                 <div className="w-[420px] sm:text-center">
                     <h4 className="text-[1.2rem]">
                         Witness speed and accuracy together.
                     </h4>
-                    <h1 className="font-bold text-[2.5rem]">
+                    <h1 className="text-[2.5rem] font-bold">
                         Automate your recruitment-pipeline with AI.
                     </h1>
                     <h4 className="text-[1.2rem]">
@@ -63,7 +63,7 @@ export default function Home() {
                     <div className="mt-5 sm:mt-8 sm:flex sm:justify-center">
                         <div className="rounded-md">
                             <LK
-                                className="cursor-pointer w-1/2 md:w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 shadow-lg shadow-blue-600/50 transition-colors duration-500 ease-in-out hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
+                                className="flex w-1/2 cursor-pointer items-center justify-center rounded-md border border-transparent bg-blue-600 px-8 py-3 text-base font-medium text-white shadow-lg shadow-blue-600/50 transition-colors duration-500 ease-in-out hover:bg-blue-700 md:w-full md:py-4 md:px-10 md:text-lg"
                                 to="demo"
                                 smooth={true}
                                 offset={-70}
@@ -83,19 +83,19 @@ export default function Home() {
                     />
                 </div>
             </div>
-            <div className="text-gray-800 bg-white text-center py-4">
+            <div className="bg-white py-4 text-center text-gray-800">
                 <h4 className="text-[2rem] font-semibold">Truth Be Told</h4>
-                <h1 className="first-letter:text-[3.5rem] font-bold text-blue-600 my-1 text-[2rem]">
+                <h1 className="my-1 text-[2rem] font-bold text-blue-600 first-letter:text-[3.5rem]">
                     8s
                 </h1>
-                <h4 className="text-[1.5rem] font-extralight mb-2">
+                <h4 className="mb-2 text-[1.5rem] font-extralight">
                     Is the average time spent by a recruiter on
                     <span className="font-normal"> manually </span>
                     scanning One Resume.
                 </h4>
             </div>
-            <div className="text-white text-center py-[0.6rem] flex flex-col items-center justify-center">
-                <h1 className="text-[2rem] font-semibold sm:text-2xl m-3">
+            <div className="flex flex-col items-center justify-center py-[0.6rem] text-center text-white">
+                <h1 className="m-3 text-[2rem] font-semibold sm:text-2xl">
                     Problems With the Current System
                 </h1>
                 <div className="flex justify-center gap-2 py-4 sm:flex-col">
@@ -111,8 +111,8 @@ export default function Home() {
                 </div>
             </div>
             <hr className="text-white" noshade="true" />
-            <div className="text-white bg-black flex flex-col w-full">
-                <h1 className="text-[3rem] font-bold text-center m-4">
+            <div className="flex w-full flex-col bg-black text-white">
+                <h1 className="m-4 text-center text-[3rem] font-bold">
                     Our Solutions
                 </h1>
                 {solutions.map((solution) => (
@@ -128,9 +128,9 @@ export default function Home() {
 
             <div
                 id="demo"
-                className="text-white w-full flex flex-col justify-center items-center p-[2rem]"
+                className="flex w-full flex-col items-center justify-center p-[2rem] text-white"
             >
-                <h1 className="text-[3rem] font-bold mb-6">Try Now</h1>
+                <h1 className="mb-6 text-[3rem] font-bold">Try Now</h1>
                 {isFileUploaded && <ResultBox result={result} />}
                 <form className="flex flex-col items-center justify-center">
                     <input
@@ -138,18 +138,18 @@ export default function Home() {
                         name="file"
                         id="file"
                         onChange={onChange}
-                        className="file:bg-gradient-to-b file:from-blue-600 file:to-blue-500 file:px-5 file:py-3 file:m-5 file:border-none file:rounded-full file:text-white file:cursor-pointer file:shadow-lg file:shadow-blue-500/50 bg-gradient-to-br from-gray-600 to-gray-700 text-white/70 rounded-full cursor-pointer shadow-md shadow-gray-600/30 w-full"
+                        className="w-full cursor-pointer rounded-full bg-gradient-to-br from-gray-600 to-gray-700 text-white/70 shadow-md shadow-gray-600/30 file:m-5 file:cursor-pointer file:rounded-full file:border-none file:bg-gradient-to-b file:from-blue-600 file:to-blue-500 file:px-5 file:py-3 file:text-white file:shadow-lg file:shadow-blue-500/50"
                     />
                     <div>
                         <button
                             onClick={handleSubmit}
-                            className="m-[1rem] p-[1rem] bg-gradient-to-b from-blue-500 to-blue-600 text-white rounded-full cursor-pointer shadow-md shadow-blue-600/30"
+                            className="m-[1rem] cursor-pointer rounded-full bg-gradient-to-b from-blue-500 to-blue-600 p-[1rem] text-white shadow-md shadow-blue-600/30"
                         >
                             Parse Resume
                         </button>
                         <button
                             onClick={handleClear}
-                            className="m-[1rem] p-[1rem] bg-gradient-to-b from-yellow-300 to-yellow-400 text-white rounded-lg cursor-pointer shadow-md shadow-blue-600/30"
+                            className="m-[1rem] cursor-pointer rounded-lg bg-gradient-to-b from-yellow-300 to-yellow-400 p-[1rem] text-white shadow-md shadow-blue-600/30"
                         >
                             Clear
                         </button>
@@ -162,7 +162,7 @@ export default function Home() {
                     </Link>
                 </p>
             </div>
-            <footer className="bg-white text-center font-2xl font-light py-5">
+            <footer className="font-2xl bg-white py-5 text-center font-light">
                 <h1>
                     Copyright &copy; {new Date().getFullYear()} | All Rights
                     Reserved

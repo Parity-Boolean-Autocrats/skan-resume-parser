@@ -8,6 +8,9 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 export const supabaseServer = createClient(SUPABASE_URL, SUPABASE_KEY, {
     fetch: fetch,
 });
+export const SUPABASE_STORAGE_URL =
+    process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL;
+
 export const NEXT_URL =
     process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000";
 export const NEXT_API_KEY = process.env.NEXT_PUBLIC_NEXT_API_KEY;
