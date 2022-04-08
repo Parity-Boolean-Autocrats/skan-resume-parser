@@ -26,7 +26,7 @@ export default function Home() {
 
         try {
             let { data } = await getDemoResult(file);
-            setResult(data.toString());
+            setResult(data);
         } catch (e) {
             setResult(e.toString());
         } finally {
