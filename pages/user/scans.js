@@ -3,15 +3,37 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/solid";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { fetchProfile, fetchResumes } from "@/store/index";
 import { useRouter } from "next/router";
 import AuthContext from "@/context/AuthContext";
-import { SUPABASE_STORAGE_URL } from "@/config/index";
+import { supabase, SUPABASE_STORAGE_URL } from "@/config/index";
 import Summary from "@/components/Summary";
+import { useState } from "react";
 
-export default function ScansPage({ profile, scans }) {
+export default function ScansPage({ profile, scs }) {
     const router = useRouter();
+
+    const [scans, setScans] = useState(scs);
+    const [params, setParams] = useState("");
+
+    useEffect(() => {
+        const getResults = async () => {
+            if (params.length > 2) {
+                setTimeout(async () => {
+                    let { data, error } = await supabase
+                        .from("resumes")
+                        .select()
+                        .textSearch("fts", `'${params.split(" ").join("|")}'`);
+                    // .or(`skills.cs.({${params.split(" ")}})`);
+                    setScans(data);
+                }, 1000);
+            } else {
+                setScans(scs);
+            }
+        };
+        getResults();
+    }, [params]);
 
     const { logout } = useContext(AuthContext);
 
@@ -34,6 +56,8 @@ export default function ScansPage({ profile, scans }) {
 
     const handleLogout = async (e) => {
         e.preventDefault();
+        setParams(e.target.value);
+        console.log(params);
 
         try {
             let error = await logout();
@@ -59,12 +83,41 @@ export default function ScansPage({ profile, scans }) {
                         </h1>
                     </div>
                 </header>
+
                 <main>
-                    {!resumes || resumes.length === 0 ? (
+                    <div className="flex justify-center">
+                        <div className="mb-3 xl:w-96">
+                            <input
+                                type="search"
+                                className="
+        form-control
+        m-0
+        block
+        w-full
+        rounded
+        border
+        border-solid
+        border-gray-300
+        bg-white bg-clip-padding
+        px-3 py-1.5 text-base
+        font-normal
+        text-gray-700
+        transition
+        ease-in-out
+        focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none
+      "
+                                onChange={(e) => setParams(e.target.value)}
+                                value={params}
+                                id="exampleSearch"
+                                placeholder="Search"
+                            />
+                        </div>
+                    </div>
+                    {!scans || scans.length === 0 ? (
                         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
                             <div className="px-4 py-6 sm:px-0">
                                 <h1 className="text-center text-2xl text-white">
-                                    No Resume Scanned Yet.
+                                    No Resume(s) found.
                                 </h1>
                             </div>
                         </div>
@@ -74,6 +127,7 @@ export default function ScansPage({ profile, scans }) {
                                 <h1 className="mb-5 text-2xl font-bold ">
                                     Scanned Resumes
                                 </h1>
+
                                 {scans.map((res) => (
                                     <Disclosure key={res.id}>
                                         {({ open }) => (
@@ -84,7 +138,7 @@ export default function ScansPage({ profile, scans }) {
                                                         <span className="mx-4 self-end">
                                                             <a
                                                                 rel="noopener noreferrer"
-                                                                download
+                                                                download="file.pdf"
                                                                 target="_blank"
                                                                 href={
                                                                     SUPABASE_STORAGE_URL +
@@ -126,7 +180,7 @@ export default function ScansPage({ profile, scans }) {
 
 export async function getServerSideProps({ req }) {
     const profile = await fetchProfile(req);
-    const scans = await fetchResumes(profile.id);
+    const scs = await fetchResumes(profile.id);
 
-    return { props: { profile, scans } };
+    return { props: { profile, scs } };
 }

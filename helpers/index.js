@@ -1,3 +1,5 @@
+import { supabase } from "@/config/index";
+
 export const problems = [
     {
         icon: "fas fa-user-clock fa-3x",
@@ -64,3 +66,11 @@ export function exportJson(obj) {
     link.setAttribute("href", "data:" + data);
     link.setAttribute("download", "data.json");
 }
+
+export const downloadURL = (filename) => {
+    let { signedURL, error } = supabase.storage
+        .from("files")
+        .getPublicUrl(`files/${filename}`);
+
+    return signedURL;
+};

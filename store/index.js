@@ -5,6 +5,7 @@ import {
     FLASK_API_URL,
 } from "@/config/index";
 import axios from "axios";
+import { SUPABASE_STORAGE_URL } from "@/config/index";
 
 // Fetch User Profile
 export const fetchProfile = async (req) => {
@@ -75,9 +76,15 @@ export const getParsedResumeResult = async (file, user_id) => {
             skills,
         } = r;
 
+        const epo = Date.now();
+
+        const er = await addFileToStorage({ filename: `${epo}_${fl}`, file });
+
+        if (er) return er;
+
         let error = await addResume({
             user_id,
-            file_url: `${Date.now()}_${fl}`,
+            file_url: `${epo}_${fl}`,
             name,
             phone,
             email,
@@ -87,8 +94,6 @@ export const getParsedResumeResult = async (file, user_id) => {
         });
 
         if (error) return error;
-
-        await addFileToStorage({ filename: `${Date.now()}_${fl}`, file });
     });
 };
 
