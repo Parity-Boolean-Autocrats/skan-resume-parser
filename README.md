@@ -26,9 +26,9 @@ All resumes that've been previously parsed are stored in the _All Scans_ Page. T
 
 ## Developers
 
-V. Krishnasubramaniam
-Sreekesh Iyer
-Aamir Ansari
+V. Krishnasubramaniam <br/>
+Sreekesh Iyer <br/>
+Aamir Ansari <br/>
 Ninad Rao
 
 ---
