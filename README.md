@@ -1,27 +1,35 @@
-# Next.js + Tailwind CSS Example
+# SKAN
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+SKAN is a Resume Parser Service that is capable of parsing upto 100 resumes at a time along with options to store it for further use. 
 
-## Preview
+## Landing Page
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+![image](https://user-images.githubusercontent.com/67017933/166252702-7100586a-1a3c-496a-9f28-8a346a998c5d.png)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+## Demo
 
-## Deploy your own
+![image](https://user-images.githubusercontent.com/67017933/166252796-b3301ebb-0a85-4611-8ed3-d6c163050133.png)
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+You can try uploading one resume in the demo to get a JSON response consisting of the parsed results.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+## Dashboard
 
-## How to use
+![image](https://user-images.githubusercontent.com/67017933/166253628-8ac69f29-47df-4636-9d7c-43337f4e6b81.png)
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+You can scan upto 100 resumes by uploading them on the user dashboard.
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
+## Scan Logs
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+![image](https://user-images.githubusercontent.com/67017933/166253934-2eca5eaa-336f-48c3-8180-383675569a1a.png)
+
+All resumes that've been previously parsed are stored in the _All Scans_ Page. These can be viewed and deleted if unnecessary. The original files of these resumes' are also stored, hence can be accessed at any time. 
+
+## Developers
+
+V. Krishnasubramaniam
+Sreekesh Iyer
+Aamir Ansari
+Ninad Rao
+
+---
+This was our submission for Deep Blue Season 7 Hackathon 2021-22. This was presented to the jury in the semi-finals held at Mastek Ltd., Mahape, Navi Mumbai, India.
