@@ -1,6 +1,6 @@
 # SKAN
 
-SKAN is a Resume Parser Service that is capable of parsing upto 100 resumes at a time along with options to store it for further use. 
+SKAN is a Resume Parser Service that is capable of parsing upto 100 resumes at a time along with options to store it for further use, providing information like contact details, education, work experience, skills and achievements, etc.
 
 ## Landing Page
 
