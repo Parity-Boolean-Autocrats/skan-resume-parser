@@ -36,12 +36,12 @@ export const solutions = [
         description:
             "Our algorithm is trained with loads of random data to ensure that it provides the most accurate numbers and predictions for your candidates. We ensure we provide you enough data to fairly judge each candidate.",
     },
-    {
-        image: "visualizations.jpg",
-        title: "Visualizations",
-        description:
-            "We provide quality data visualizations in the form of graphs and charts to give provide you clarity about the experience of candidates in your preferred and required skillsets.",
-    },
+    // {
+    //     image: "visualizations.jpg",
+    //     title: "Visualizations",
+    //     description:
+    //         "We provide quality data visualizations in the form of graphs and charts to give provide you clarity about the experience of candidates in your preferred and required skillsets.",
+    // },
 ];
 
 export const arrayMatchCount = (query, list) => {

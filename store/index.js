@@ -71,8 +71,8 @@ export const getParsedResumeResult = async (file, user_id) => {
             file: fl,
             phone,
             email,
-            education,
-            experience,
+            education_certifications_and_achievements,
+            work,
             skills,
         } = r;
 
@@ -88,9 +88,9 @@ export const getParsedResumeResult = async (file, user_id) => {
             name,
             phone,
             email,
-            education,
+            education_certifications_and_achievements,
             skills,
-            experience,
+            work,
         });
 
         if (error) return error;
@@ -115,9 +115,9 @@ export const addResume = async ({
     file_url,
     phone,
     email,
-    education,
+    education_certifications_and_achievements,
     skills,
-    experience,
+    work,
 }) => {
     const { data, error } = await supabase.from("resumes").insert({
         user_id,
@@ -125,9 +125,9 @@ export const addResume = async ({
         name,
         phone,
         email,
-        education,
+        education_certifications_and_achievements,
         skills,
-        experience,
+        work,
     });
 
     if (error) return error;

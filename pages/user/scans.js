@@ -19,7 +19,7 @@ export default function ScansPage({ profile, scs }) {
 
     useEffect(() => {
         const getResults = async () => {
-            if (params.length > 2) {
+            if (params.length > 0) {
                 setTimeout(async () => {
                     let { data, error } = await supabase
                         .from("resumes")
@@ -36,6 +36,11 @@ export default function ScansPage({ profile, scs }) {
     }, [params]);
 
     const { logout } = useContext(AuthContext);
+
+    const deleteResume = async (id) => {
+        await supabase.from("resumes").delete().eq("id", id);
+        setScans(scs.filter((sc) => sc.id !== id));
+    };
 
     const resumes = [
         {
@@ -57,7 +62,6 @@ export default function ScansPage({ profile, scs }) {
     const handleLogout = async (e) => {
         e.preventDefault();
         setParams(e.target.value);
-        console.log(params);
 
         try {
             let error = await logout();
@@ -129,45 +133,123 @@ export default function ScansPage({ profile, scs }) {
                                 </h1>
 
                                 {scans.map((res) => (
-                                    <Disclosure key={res.id}>
-                                        {({ open }) => (
-                                            <>
-                                                <Disclosure.Button className="my-2 flex w-full justify-between rounded-lg bg-blue-200 px-4 py-2 text-left text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
-                                                    <div className="w-full max-w-[900px]">
-                                                        <span>{res.name}</span>
-                                                        <span className="mx-4 self-end">
-                                                            <a
-                                                                rel="noopener noreferrer"
-                                                                download="file.pdf"
-                                                                target="_blank"
-                                                                href={
-                                                                    SUPABASE_STORAGE_URL +
-                                                                    res.file_url
-                                                                }
-                                                            >
-                                                                <i className="fa-solid fa-file-arrow-down"></i>
-                                                            </a>
-                                                        </span>
-                                                    </div>
-                                                    <div className="flex">
-                                                        <ChevronUpIcon
-                                                            className={`${
-                                                                !open
-                                                                    ? "rotate-180 transform"
-                                                                    : ""
-                                                            } h-5 w-5 text-blue-600`}
-                                                        />
-                                                    </div>
-                                                </Disclosure.Button>
-                                                <Disclosure.Panel className="rounded-md bg-blue-100 px-4 pt-4 pb-2 text-sm text-gray-700">
-                                                    <Summary
-                                                        key={scans.indexOf(res)}
-                                                        data={res}
-                                                    />
-                                                </Disclosure.Panel>
-                                            </>
-                                        )}
-                                    </Disclosure>
+                                    <div
+                                        key={res.id}
+                                        className="flex items-center"
+                                    >
+                                        <div className="w-full">
+                                            <Disclosure>
+                                                {({ open }) => (
+                                                    <>
+                                                        <Disclosure.Button className="my-2 flex w-full justify-between rounded-lg bg-blue-200 px-4 py-2 text-left text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
+                                                            <div className="w-full max-w-[900px]">
+                                                                <span>
+                                                                    {res.name &&
+                                                                    res.name
+                                                                        .length >
+                                                                        0
+                                                                        ? res.name
+                                                                        : "Name Not Found"}
+                                                                </span>
+                                                            </div>
+                                                            <div className="flex">
+                                                                <ChevronUpIcon
+                                                                    className={`${
+                                                                        !open
+                                                                            ? "rotate-180 transform"
+                                                                            : ""
+                                                                    } h-5 w-5 text-blue-600`}
+                                                                />
+                                                            </div>
+                                                        </Disclosure.Button>
+                                                        <Disclosure.Panel className="rounded-md bg-blue-100 px-4 pt-4 pb-2 text-sm text-gray-700">
+                                                            <Summary
+                                                                data={res}
+                                                            />
+                                                        </Disclosure.Panel>
+                                                    </>
+                                                )}
+                                            </Disclosure>
+                                        </div>
+                                        <div className="my-4 flex gap-3 self-start">
+                                            <div>
+                                                <div className="mb-1">
+                                                    <button
+                                                        onClick={() => {
+                                                            deleteResume(
+                                                                res.id
+                                                            );
+                                                        }}
+                                                    >
+                                                        <i className="fa-solid fa-trash-can"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <button
+                                                    className="mb-1"
+                                                    onClick={async () => {
+                                                        let { data, error } =
+                                                            await supabase.storage
+                                                                .from("files")
+                                                                .download(
+                                                                    `files/${res.file_url}`
+                                                                );
+                                                        if (!error) {
+                                                            const blob = data;
+                                                            const newBlob =
+                                                                new Blob(
+                                                                    [blob],
+                                                                    {
+                                                                        type: `application/${
+                                                                            (res.file_url.match(
+                                                                                /\.([^.]*?)(?=\?|#|$)/
+                                                                            ) ||
+                                                                                [])[1]
+                                                                        }`,
+                                                                    }
+                                                                );
+                                                            const blobUrl =
+                                                                window.URL.createObjectURL(
+                                                                    newBlob
+                                                                );
+
+                                                            const link =
+                                                                document.createElement(
+                                                                    "a"
+                                                                );
+                                                            link.href = blobUrl;
+                                                            link.setAttribute(
+                                                                "download",
+                                                                `${res.file_url}`
+                                                            );
+                                                            document.body.appendChild(
+                                                                link
+                                                            );
+                                                            link.click();
+                                                            link.parentNode.removeChild(
+                                                                link
+                                                            );
+                                                            window.URL.revokeObjectURL(
+                                                                blob
+                                                            );
+                                                            toast.success(
+                                                                `Downloading file`
+                                                            );
+                                                            return true;
+                                                        } else {
+                                                            toast.error(
+                                                                `Failed to download`
+                                                            );
+                                                            return false;
+                                                        }
+                                                    }}
+                                                >
+                                                    <i className="fa-solid fa-file-arrow-down"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 ))}
                             </div>
                         </>
